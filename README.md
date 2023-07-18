@@ -58,4 +58,4 @@ FurnishAR is a revolutionary augmented reality app that enables users to effortl
 
 ## Grab Yourself A Free Roadmap
 Want to learn more about Augmented Reality in depth? Grab yourself a free roadmap that would guide your through your journey of becoming a professional Extended Reality Developer
-- [Augmented Reality Development Roadmap](https://www.example.com/roadmap)
+#### **[Extended Reality Development Roadmap](https://priyanshuxr.gumroad.com/l/xrealityroadmap)**
