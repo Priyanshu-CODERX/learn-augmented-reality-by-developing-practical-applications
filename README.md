@@ -4,7 +4,8 @@
     <img src="./assets/thumbnail.png" alt="Logo" width="100%">
   </a>
 </div>
-# Augmented Reality
+
+# Free Augmented Reality Course
 
 Augmented Reality (AR) is a technology that combines computer-generated elements with the real world, enhancing the user's perception and interaction with their environment. AR overlays digital information such as images, videos, or 3D models onto the real world, usually through a smartphone, tablet, or wearable device.
 
