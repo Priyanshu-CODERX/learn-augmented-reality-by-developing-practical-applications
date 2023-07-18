@@ -1,6 +1,6 @@
 <br />
 <div align="center">
-  <a target="_blank" href="https://antern.co/">
+  <a target="_blank" href="https://www.youtube.com/@CodedRealityXR">
     <img src="./assets/thumbnail.png" alt="Logo" width="100%">
   </a>
 </div>
