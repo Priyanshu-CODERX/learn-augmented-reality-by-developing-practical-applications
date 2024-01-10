@@ -59,3 +59,64 @@ FurnishAR is a revolutionary augmented reality app that enables users to effortl
 ## Grab Yourself A Free Roadmap
 Want to learn more about Augmented Reality in depth? Grab yourself a free roadmap that would guide your through your journey of becoming a professional Extended Reality Developer
 #### **[Extended Reality Development Roadmap](https://priyanshuxr.gumroad.com/l/xrealityroadmap)**
+
+# Solution
+Hello, everyone! 👋 If you're having issues with AR Foundation because it's been upgraded to version 5.0 while the course uses version 4, don't worry! I've got solutions for your problems below.
+## 1. Black Screen Issue
+  - If you encounter a black screen after building the APK of your application, first, check if your device supports AR Core. If it does, ensure that AR Core is installed from the Play Store. Additionally, make sure you have ```Initialize XR on Startup``` and the ```AR Core plugin``` enabled in the XR Plugin Management tab under Project Settings ```Edit > Project Settings > XR Plugin Management (Android)```
+    -  **[List of AR Core Supported Devices](https://developers.google.com/ar/devices)**
+    -  **[Install AR Core from PlayStore](https://play.google.com/store/apps/details?id=com.google.ar.core&hl=en&gl=US)**
+  - Another possible cause for a black screen is the absence of an AR Session in your scene. Adding an AR Session is crucial for AR Foundation to properly run through its lifecycle. Ensure you have included the AR Session in your scene to avoid encountering the black screen issue.
+  - If you've set up your project using the URP Template, double-check that your URP Renderer includes the AR Background Renderer Feature. Failing to add this feature might result in a black screen when building on URP with AR Foundation. Ensure it's properly configured to avoid encountering the black screen issue.
+<img src="https://github.com/Priyanshu-CODERX/learn-augmented-reality-by-developing-practical-applications/assets/59302986/66577f49-6ff6-4a06-ae2f-0ba605c92d1c" alt="Logo" width="30%">
+
+## 2. AR Session Origin Depricated
+Indeed, in the latest version, the AR Session Origin has been deprecated and replaced with XR Origin. However, it's important to note that the components within the script remain largely the same, with only minor changes. Update your scripts accordingly to accommodate this transition.
+- Import ```using Unity.XR.CoreUtils;``` to make use of ```XROrigin``` rather than ```ARSessionOrigin```
+- Replace ```[SerializeField] private ARSessionOrigin _sessionOrigin``` with ```[SerializeField] private XROrigin _xrOrigin;```
+### Sample Code
+```csharp
+using System.Collections;
+using System.Collections.Generic;
+using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+
+public class SimpleARPlacementManager : MonoBehaviour
+{
+    [SerializeField] private XROrigin _xrOrigin;
+    [SerializeField] private ARPlaneManager _planeManager;
+    [SerializeField] private ARRaycastManager _raycastManager;
+    [SerializeField] private GameObject _placementObject;
+
+    private GameObject _instantiatedObject = null;
+
+    private List<ARRaycastHit> _raycastHits = new List<ARRaycastHit>();
+
+    private void Update()
+    {
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            bool collision = _raycastManager.Raycast(Input.GetTouch(0).position, _raycastHits, TrackableType.PlaneWithinPolygon);
+            
+            if(collision && _instantiatedObject == null)
+            {
+                _instantiatedObject = Instantiate(_placementObject, _raycastHits[0].pose.position, _raycastHits[0].pose.rotation);
+
+                foreach(ARPlane plane in _planeManager.trackables)
+                {
+                    plane.gameObject.SetActive(false);
+                }
+                _planeManager.enabled = false;
+            }
+        }
+    }
+}
+
+```
+## 3. Mobile does not support ARCore
+I acknowledge that not all smartphones support ARCore. Therefore, I recommend utilizing the XR Simulator offered by AR Foundation 5.0 for testing your AR experiences.
+![image](https://github.com/Priyanshu-CODERX/learn-augmented-reality-by-developing-practical-applications/assets/59302986/a2ba187f-a2b2-4b4f-bd87-04ebcb259c06)
+To utilize the XR Simulator in AR Foundation 5, simply follow the instructions provided in the documentation below.
+- [Getting Started with XR Simulator for AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.1/manual/xr-simulation/simulation-getting-started.html)
